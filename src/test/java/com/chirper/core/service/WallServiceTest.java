@@ -2,13 +2,18 @@ package com.chirper.core.service;
 
 import com.chirper.core.model.Post;
 import com.chirper.core.model.Wall;
+import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
@@ -53,7 +58,32 @@ public class WallServiceTest {
         assertThat(testUserWall.getTimestamp()).isBefore(new Date());
     }
 
+    @Test
+    public void userWallIsOrdered() {
+        // given
+        when(postService.findForUser(TEST_USER)).thenReturn(postsOneHourApart());
+
+        // when
+        Wall testUserWall = wallService.findByUser(TEST_USER);
+
+        // then
+        assertThat(testUserWall.getPosts()).hasSize(2);
+        Post firstPost = testUserWall.getPosts().get(0);
+        Post secondPost = testUserWall.getPosts().get(1);
+        assertThat(firstPost.getTimestamp()).isAfter(secondPost.getTimestamp());
+    }
+
+    private List<Post> postsOneHourApart() {
+        Post earlierPost = testPostWithDate(new Date());
+        Post laterPost = testPostWithDate(DateUtils.addHours(new Date(), 1));
+        return new ArrayList<>(List.of(earlierPost, laterPost));
+    }
+
     private Post testPost() {
-        return new Post(TEST_USER, "testMessage", new Date());
+        return testPostWithDate(new Date());
+    }
+
+    private Post testPostWithDate(Date date) {
+        return new Post(TEST_USER, "testMessage", date);
     }
 }

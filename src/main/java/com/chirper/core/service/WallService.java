@@ -5,6 +5,7 @@ import com.chirper.core.model.Wall;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class WallService {
 
     public Wall findByUser(String user) {
         List<Post> userPosts = postService.findForUser(user);
+        Collections.reverse(userPosts);
         return new Wall(userPosts, new Date());
     }
 }
