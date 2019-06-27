@@ -55,7 +55,7 @@ public class WallServiceTest {
         Wall testUserWall = wallService.findByUser(TEST_USER);
 
         // then
-        assertThat(testUserWall.getTimestamp()).isBefore(new Date());
+        assertThat(testUserWall.getTimestamp()).isBeforeOrEqualsTo(new Date());
     }
 
     @Test
