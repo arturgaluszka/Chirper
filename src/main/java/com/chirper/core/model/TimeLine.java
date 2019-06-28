@@ -7,6 +7,6 @@ import java.util.List;
 
 @Value
 public class TimeLine {
-    private Date timestamp;
     private List<Post> posts;
+    private Date timestamp;
 }
