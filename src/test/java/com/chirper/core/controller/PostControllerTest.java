@@ -39,7 +39,8 @@ public class PostControllerTest {
         Post newPost = new Post("testUser", longMessage(), null);
 
         // when
-        ResponseEntity<Post> response = restTemplate.exchange("http://localhost:" + port + "/post", HttpMethod.POST, new HttpEntity<>(newPost), Post.class);
+        ResponseEntity<Post> response = restTemplate.exchange("http://localhost:" + port + "/post",
+                HttpMethod.POST, new HttpEntity<>(newPost), Post.class);
 
         // then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);

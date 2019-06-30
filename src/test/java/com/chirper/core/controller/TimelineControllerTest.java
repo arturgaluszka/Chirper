@@ -45,7 +45,8 @@ public class TimelineControllerTest {
         // given
 
         // when
-        TimeLine response = restTemplate.getForObject("http://localhost:" + port + "/user/testUser/timeline", TimeLine.class, emptyMap());
+        TimeLine response = restTemplate.getForObject("http://localhost:" + port + "/user/testUser/timeline",
+                TimeLine.class, emptyMap());
 
         // then
         assertThat(response.getPosts()).hasSize(1)

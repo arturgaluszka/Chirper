@@ -8,10 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.Collections.reverseOrder;
+import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +29,8 @@ public class TimelineService {
                 .map(wallService::findByUser)
                 .map(Wall::getPosts)
                 .flatMap(Collection::stream)
-                .sorted(Collections.reverseOrder())
-                .collect(Collectors.toList());
+                .sorted(reverseOrder())
+                .collect(toList());
         return new TimeLine(posts, new Date());
     }
 }

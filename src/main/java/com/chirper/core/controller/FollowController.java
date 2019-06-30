@@ -17,7 +17,7 @@ public class FollowController {
 
     @ApiOperation(value = "Creates follow relation between users")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "followed user's name",reference = "ref")
+            @ApiResponse(code = 200, message = "followed user's name")
     })
     @RequestMapping(method = RequestMethod.POST)
     public String follow(

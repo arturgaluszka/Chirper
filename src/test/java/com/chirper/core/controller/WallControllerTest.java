@@ -41,7 +41,8 @@ public class WallControllerTest {
         // given
 
         // when
-        Wall response = restTemplate.getForObject("http://localhost:" + port + "user/testUser/wall", Wall.class, emptyMap());
+        Wall response = restTemplate.getForObject("http://localhost:" + port + "user/testUser/wall",
+                Wall.class, emptyMap());
 
         // then
         assertThat(response.getPosts()).hasSize(1)

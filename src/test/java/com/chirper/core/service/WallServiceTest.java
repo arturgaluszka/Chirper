@@ -24,6 +24,7 @@ import static org.mockito.Mockito.when;
 public class WallServiceTest {
 
     private static final String TEST_USER = "testUser";
+
     @Mock
     private PostService postService;
 

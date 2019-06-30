@@ -13,7 +13,7 @@ import java.util.Map;
 public class FollowsRepository {
     private final Map<String, List<String>> follows;
 
-    public FollowsRepository(){
+    public FollowsRepository() {
         log.info("initializing follows repository");
         follows = new HashMap<>();
     }
