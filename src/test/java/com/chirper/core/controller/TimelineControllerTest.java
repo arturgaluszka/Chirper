@@ -1,7 +1,8 @@
 package com.chirper.core.controller;
 
 import com.chirper.core.model.Post;
-import com.chirper.core.model.Wall;
+import com.chirper.core.model.TimeLine;
+import com.chirper.core.service.FollowsService;
 import com.chirper.core.service.PostService;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,11 +17,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static java.util.Collections.emptyMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class WallControllerTest {
+public class TimelineControllerTest {
 
     @LocalServerPort
     private int port;
@@ -31,9 +31,13 @@ public class WallControllerTest {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private FollowsService followsService;
+
     @Before
     public void setup() {
-        postService.addPost(new Post("testUser", "testMessage", null));
+        postService.addPost(new Post("followed", "testMessage", null));
+        followsService.addFollow("testUser", "followed");
     }
 
     @Test
@@ -41,11 +45,11 @@ public class WallControllerTest {
         // given
 
         // when
-        Wall response = restTemplate.getForObject("http://localhost:" + port + "user/testUser/wall", Wall.class, emptyMap());
+        TimeLine response = restTemplate.getForObject("http://localhost:" + port + "/user/testUser/timeline", TimeLine.class, emptyMap());
 
         // then
         assertThat(response.getPosts()).hasSize(1)
                 .allSatisfy(post ->
-                        assertThat(post.getUser()).isEqualTo("testUser"));
+                        assertThat(post.getUser()).isEqualTo("followed"));
     }
 }

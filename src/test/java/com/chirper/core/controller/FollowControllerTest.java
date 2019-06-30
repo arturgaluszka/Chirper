@@ -34,7 +34,7 @@ public class FollowControllerTest {
         String secondUser = "toFollow";
 
         // when
-        String posted = restTemplate.postForObject("/user/testuser/follows", secondUser, String.class);
+        String posted = restTemplate.postForObject("http://localhost:" + port + "user/testuser/follows", secondUser, String.class);
 
         // then
         assertThat(posted).isEqualTo(secondUser);

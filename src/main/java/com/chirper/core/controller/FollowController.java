@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user/{user}/follows")
-@Api(tags = {"FOLLOWS"}, value = "Follow operations", description = "Operations on follows")
+@Api(tags = {"USER"}, description = "Operations on users' data")
 @RequiredArgsConstructor
 @Slf4j
 public class FollowController {
