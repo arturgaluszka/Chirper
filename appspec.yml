@@ -17,10 +17,10 @@ hooks:
       timeout: 20
       runas: ec2-user
   ApplicationStart:
-    - location: ./scripts/start.sh
+    - location: start.sh
       timeout: 20
       runas: ec2-user
   ValidateService:
-    - location: ./scripts/validate.sh
+    - location: validate.sh
       timeout: 120
       runas: ec2-user
